@@ -1,0 +1,12 @@
+ASSERT FAILED: [index>=0 && index<static_cast<int>(material_data.size())] with message: index 4 is incorrect (should be < 4
+In file [/fs03/share/users/romain.biassin/home/Documents/Image_rendu_ray/tp_ray_tracing/projet/src/ray_tracing/scene/scene_parameter.cpp] 
+In function [get_material]
+At line 68 
+
+0             0x41280d cpe::get_backtrace(int) + 61
+1             0x4116dc cpe::scene_parameter::get_material(int) const + 76
+2             0x40e35c cpe::ray_trace(cpe::ray const&, cpe::scene_parameter const&) + 124
+3             0x40e42d cpe::render(cpe::image&, cpe::scene_parameter const&) + 173
+4             0x40d24f main + 1183
+5       0x7f9f0f85df45 __libc_start_main + 245
+6             0x40da7f ./pgm() [0x40da7f]

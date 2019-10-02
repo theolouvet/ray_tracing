@@ -66,28 +66,32 @@ bool sphere::intersect(ray const& ray_param,intersection_data& intersection) con
 
 
     //Le code suivant est arbitraire est doit etre modifie
-    vec3 const& p0 = ray_param.p0() -  center_data;
-
+    vec3 const& p0 = ray_param.p0();
+    vec3 const& p = center_data;
+    vec3 const& pp0 = p0 - p;
     //float f=sqrt(4.0f*dot(p0-center_data,u)*dot(p0-1.1f*center_data,u)-3.5f*dot(p0-center_data,p0-center_data));
     //float b = 2.0f * ( p0.x()*u.x() + p0.y()*u.y() + p0.z()*u.z() );
-    float b= 2.0f * dot(p0,u);
+    float b= 2.0f * dot(pp0,u);
     float a = 1.0f;
-    float c = pow(p0.x(),2)+pow(p0.y(),2)+pow(p0.z(),2)-pow(radius_data,2);
+    float eps = 0.005f;
+    float c = pow(pp0.x(),2)+pow(pp0.y(),2)+pow(pp0.z(),2)-pow(radius_data,2);
     float delta = 1.0f * pow(b,2) - 4.0f * a *c;
     float f = 0.0f;
-    if(delta == 0)
+    if(delta == 0 )
         f = -1.0 * b / (2.0f * a);
     else if(delta > 0){
         f = (-1.0f * b - (float) sqrt(delta))/(2.0f * a);
         if(f < 0){
             f = (-1.0f * b + (float) sqrt(delta))/(2.0f * a);
         }
-    }
-    if(f>2.5f)
-    {
-        return true;
-    }
-    return false;
+    }else
+        return false;
+
+    vec3 const& pinter = p0+f*u;
+    vec3 const& ninter = normalized(pinter - p);
+    intersection.set(pinter, ninter,f);
+    //intersection.set();
+    return true;
 
 
 }

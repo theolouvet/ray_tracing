@@ -23,7 +23,7 @@
 #include "ray_tracing/scene/ray.hpp"
 #include "ray_tracing/primitives/intersection_data.hpp"
 #include "ray_tracing/scene/anti_aliasing_table.hpp"
-
+#include <limits>
 #include <cmath>
 
 namespace cpe
@@ -126,19 +126,28 @@ bool compute_intersection(ray const& r,
     //Ce code est a modifier afin de trouver la 1ere intersection dans l'espace 3D le long du rayon.
 
     int const N_primitive = scene.size_primitive();
-
+    //vec3 const&  p0 = ray.p0();
     bool found_intersection = false;
-    int k = 0;
-    while(k<N_primitive && found_intersection==false)
-    {
+    //float t = intersection.relative;
+
+
+    float dist = std::numeric_limits<float>::max();
+    int k;
+    for(k = 0; k < N_primitive; ++k){
         primitive_basic const & primitive = scene.get_primitive(k);
         bool is_intersection = primitive.intersect(r,intersection);
-        if(is_intersection)
+        if(is_intersection){
+
+            if(intersection.relative < dist)
+            {
+                dist = intersection.relative;
+                index_intersected_primitive = k ;
+            }
             found_intersection = true;
-        else
-            ++k;
+       }
     }
-    index_intersected_primitive = k;
+
+
 
     return found_intersection;
 }
@@ -151,6 +160,28 @@ bool is_in_shadow(vec3 const& p,vec3 const& p_light, scene_parameter const& scen
     // TO DO: Calculer si le point p est dans l'ombre de la lumiere situee en p_light
     //
     // ********************************************* //
+
+
+    int const N_primitive = scene.size_primitive();
+    //vec3 const&  p0 = ray.p0();
+    bool found_intersection = false;
+    ray r(p,p_light);
+    //float t = intersection.relative;
+    float dist = std::numeric_limits<float>::max();
+    int k;
+    intersection_data intersection;
+    for(k = 0; k < N_primitive; ++k){
+        primitive_basic const & primitive = scene.get_primitive(k);
+        bool is_intersection = primitive.intersect(r,intersection);
+        if(is_intersection){
+            if(intersection.relative > norm(p))
+            {
+                return true;
+            }
+
+       }
+    }
+
     return false;
 
 }

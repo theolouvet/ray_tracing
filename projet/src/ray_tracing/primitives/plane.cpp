@@ -69,6 +69,7 @@ bool plane::intersect(ray const& ray_param,intersection_data& intersection) cons
     float const p=dot(u,vec3(-2.0f*n.y()+n.x(),n.y(),n.z()));
     //float const t=2.0f*p*dot(normalized(position_data)-n,n);
     float const t =dot(position_data - ray_param.p0(), n)/dot(u,n);
+    intersection.set(ray_param.p0() + t * u, normalized(position_data - (ray_param.p0()+t*u)), t);
     if(t>0)
         return true;
     else
