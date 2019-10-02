@@ -66,9 +66,11 @@ bool sphere::intersect(ray const& ray_param,intersection_data& intersection) con
 
 
     //Le code suivant est arbitraire est doit etre modifie
-    vec3 const& p0 = ray_param.p0();
+    vec3 const& p0 = ray_param.p0() -  center_data;
+
     //float f=sqrt(4.0f*dot(p0-center_data,u)*dot(p0-1.1f*center_data,u)-3.5f*dot(p0-center_data,p0-center_data));
-    float b = 2.0f * ( p0.x()*u.x() + p0.y()*u.y() + p0.z()*u.z() );
+    //float b = 2.0f * ( p0.x()*u.x() + p0.y()*u.y() + p0.z()*u.z() );
+    float b= 2.0f * dot(p0,u);
     float a = 1.0f;
     float c = pow(p0.x(),2)+pow(p0.y(),2)+pow(p0.z(),2)-pow(radius_data,2);
     float delta = 1.0f * pow(b,2) - 4.0f * a *c;
@@ -76,9 +78,9 @@ bool sphere::intersect(ray const& ray_param,intersection_data& intersection) con
     if(delta == 0)
         f = -1.0 * b / (2.0f * a);
     else if(delta > 0){
-        f = (-1.0f * b + (float) sqrt(delta))/(2.0f * a);
+        f = (-1.0f * b - (float) sqrt(delta))/(2.0f * a);
         if(f < 0){
-            f = (-1.0f * b - (float) sqrt(delta))/(2.0f * a);
+            f = (-1.0f * b + (float) sqrt(delta))/(2.0f * a);
         }
     }
     if(f>2.5f)
