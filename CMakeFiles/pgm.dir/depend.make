@@ -214,6 +214,7 @@ CMakeFiles/pgm.dir/projet/src/lib/mesh/triangle_index.cpp.o: projet/src/lib/mesh
 CMakeFiles/pgm.dir/projet/src/local/main.cpp.o: projet/src/local/main.cpp
 CMakeFiles/pgm.dir/projet/src/local/main.cpp.o: projet/src/image/color.hpp
 CMakeFiles/pgm.dir/projet/src/local/main.cpp.o: projet/src/image/image.hpp
+CMakeFiles/pgm.dir/projet/src/local/main.cpp.o: projet/src/image/image_zbuffer.hpp
 CMakeFiles/pgm.dir/projet/src/local/main.cpp.o: projet/src/image/ivec2.hpp
 CMakeFiles/pgm.dir/projet/src/local/main.cpp.o: projet/src/image/template/image_basic.hpp
 CMakeFiles/pgm.dir/projet/src/local/main.cpp.o: projet/src/image/template/image_basic.tpp

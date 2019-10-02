@@ -215,6 +215,7 @@ CMakeFiles/pgm.dir/projet/src/local/main.cpp.o
  /fs03/share/users/romain.biassin/home/Documents/Image_rendu_ray/tp_ray_tracing/projet/src/local/main.cpp
  projet/src/image/color.hpp
  projet/src/image/image.hpp
+ projet/src/image/image_zbuffer.hpp
  projet/src/image/ivec2.hpp
  projet/src/image/template/image_basic.hpp
  projet/src/image/template/image_basic.tpp

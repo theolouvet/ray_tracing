@@ -61,13 +61,26 @@ color compute_shading(shading_parameter const& shading,
     //
     // k_ambiant = ambiant
     // k_diffus  = cos(normal,d)_[0,1]
-    // k_specular= (cos(s,d)_[0,1])^m
+    // k_specular= (cos(s,t)_[0,1])^m
     //
     // c = (c_ambiant + c_diffus)*c0 + c_specular*b
     //
     // ********************************************* //
+    color b = color(1,1,1);
+    vec3 o = {0,0,0};
+    vec3 d = (p_light)/norm(p_light);
+    //std::cout<< pow(d.x(),2) +pow(d.y(),2) +pow(d.z(),2) ;
+    vec3 t = (p_camera)/norm(p_camera);
+    vec3 s = reflected(d, normal);
 
-    return input;
+    int m = 128;
+    float k_ambiant = shading.ambiant;
+    float k_diffus = shading.diffuse * (dot(normal,d));///(norm(normal)*norm(d)));
+    float k_specular= shading.specular * (pow(dot(s,t), shading.specular_exponent));///(norm(s)*norm(t)),shading.specular_exponent));
+    //std::cout<<k_specular<<std::endl;
+    color c = (k_ambiant + k_diffus)*input + k_specular * b;
+
+    return c;
 
 }
 

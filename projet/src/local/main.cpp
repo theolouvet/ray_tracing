@@ -6,6 +6,7 @@
 #include "lib/common/error_handling.hpp"
 
 #include "image/image.hpp"
+#include "image/image_zbuffer.hpp"
 #include "ray_tracing/scene/scene_parameter.hpp"
 #include "ray_tracing/primitives/sphere.hpp"
 #include "ray_tracing/primitives/plane.hpp"
@@ -32,6 +33,7 @@ int main(int argc,char *argv[])
         //create empty black image
         int const N_pixels = 500;
         image im(N_pixels);
+        image_zbuffer iz(N_pixels);
         im.fill({0,0,0});
 
         //create a 3D scene for ray tracing
@@ -65,6 +67,7 @@ int main(int argc,char *argv[])
         //Render the scene
         //***********************************//
         render(im,scene);
+        iz.save("prof.ppm");
         im.save("image.ppm");
 
     }

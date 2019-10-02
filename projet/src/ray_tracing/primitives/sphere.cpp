@@ -83,6 +83,8 @@ bool sphere::intersect(ray const& ray_param,intersection_data& intersection) con
         f = (-1.0f * b - (float) sqrt(delta))/(2.0f * a);
         if(f < 0){
             f = (-1.0f * b + (float) sqrt(delta))/(2.0f * a);
+            if(f < 0)
+                return false;
         }
     }else
         return false;
